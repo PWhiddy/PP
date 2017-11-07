@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Patricia's Playhouse</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #050505;
+				color: #fff;
+				overflow: hidden;
+			}
+
+			a { color: #e00 }
+
+			#info {
+				position: absolute;
+				top: 0px; width: 100%;
+				color: #ffffff;
+				padding: 5px;
+				font-family: Monospace;
+				font-size: 13px;
+				text-align: center;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<script src="js/three.min.js"></script>
+
+		<script>
+
+			var mesh, renderer, scene, camera;
+
+
+			init();
+			render();
+
+			function linspace(a,b,n) {
+			    if(typeof n === "undefined") n = Math.max(Math.round(b-a)+1,1);
+			    if(n<2) { return n===1?[a]:[]; }
+			    var i,ret = Array(n);
+			    n--;
+			    for(i=n;i>=0;i--) { ret[i] = (i*b+(n-i)*a)/n; }
+			    return ret;
+			}
+
+
+			function init() {
+
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+				var info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '100px';
+				info.style.width = '100%';
+				info.style.textAlign = 'center';
+				info.style.fontSize = '4.8em';
+				info.style.fontFamily = 'Arial'
+				info.innerHTML = 'Welcome<br/>';
+				container.appendChild( info );
+
+				// linspace of the day
+				var lnsp = document.createElement( 'div' );
+				lnsp.style.position = 'absolute';
+				lnsp.style.top = '100px';
+				lnsp.style.width = '100%';
+				lnsp.style.textAlign = 'center';
+				lnsp.style.fontSize = '1.0em';
+				lnsp.style.fontFamily = 'Arial'
+				let date = new Date();
+				let month = date.getMonth()+1;
+				let day  = date.getDate();
+				let year = date.getFullYear()-2000;
+				var message = '<br/><br/><br/><br/><br/><br/><br/>The linspace of the day is linspace(';
+				message += month + ', ' + day + ', ' + year + ') = <br/>';
+				var arr = linspace(month,day,year);
+				message += '[';
+				for (a of arr) {
+					message += a + ', '
+				}
+				message += ']';
+				lnsp.innerHTML = message;
+				container.appendChild( lnsp );
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				scene = new THREE.Scene();
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.set( 0, 0, 40 );
+				scene.add( camera );
+
+				var geometry = new THREE.SphereGeometry( 100, 32, 32 );
+
+				var loader = new THREE.TextureLoader();
+				var texture = loader.load( 'assets/PANO_20170729_094826.jpg', render );
+				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+				//texture.matrixAutoUpdate = false; // set this to false to update texture.matrix manually
+
+				var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.BackSide } );
+
+				mesh = new THREE.Mesh( geometry, material );
+				scene.add( mesh );
+
+				//updateUvTransform();
+
+				//initGui();
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function render() {
+
+				mesh.rotation.y += 0.0002;
+				renderer.render( scene, camera );
+
+				requestAnimationFrame(render);
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+		</script>
+
+
+
+	</body>
+
+</html>
