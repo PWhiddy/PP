@@ -5,7 +5,7 @@
     var mesh, renderer, scene, camera;
 
 
-    init();
+    initVis();
     render();
 
     function linspace(a,b,n) {
@@ -18,10 +18,11 @@
     }
 
 
-    function init() {
+    function initVis() {
 
+      
+//      var container = document.createElement( 'div' );
       /*
-      container = document.createElement( 'div' );
       document.body.appendChild( container );
       var info = document.createElement( 'div' );
       info.style.position = 'absolute';
@@ -33,7 +34,8 @@
       info.style.backgroundColor = 'coral';
       info.innerHTML = 'Patricia\'s<br/>Playhouse';
       container.appendChild( info );
-
+*/ 
+/*
       // linspace of the day
       var lnsp = document.createElement( 'div' );
       lnsp.style.position = 'absolute';
@@ -52,13 +54,13 @@
       message += month + ', ' + day + ', ' + year + ') = <br/>';
       var arr = linspace(month,day,year);
       message += '[';
-      for (a of arr) {
+      for (let a of arr) {
         message += a + ', '
       }
       message += ']';
       lnsp.innerHTML = message;
       container.appendChild( lnsp );
-      */
+*/      
 
       renderer = new THREE.WebGLRenderer();
       renderer.setPixelRatio( window.devicePixelRatio );
@@ -83,7 +85,7 @@
       var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.BackSide } );
 
       mesh = new THREE.Mesh( geometry, material );
-      mesh.rotation.y = 1.6;
+      mesh.rotation.y = 1.0;
 
       scene.add( mesh );
 
