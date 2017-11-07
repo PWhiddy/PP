@@ -56,7 +56,7 @@
 				document.body.appendChild( container );
 				var info = document.createElement( 'div' );
 				info.style.position = 'absolute';
-				info.style.top = '100px';
+				info.style.top = '80px';
 				info.style.width = '100%';
 				info.style.textAlign = 'center';
 				info.style.fontSize = '4.8em';
@@ -76,7 +76,7 @@
 				let month = date.getMonth()+1;
 				let day  = date.getDate();
 				let year = date.getFullYear()-2000;
-				var message = '<br/><br/><br/><br/><br/><br/><br/>The linspace of the day is linspace(';
+				var message = '<br/><br/><br/><br/><br/>The linspace of the day is linspace(';
 				message += month + ', ' + day + ', ' + year + ') = <br/>';
 				var arr = linspace(month,day,year);
 				message += '[';
