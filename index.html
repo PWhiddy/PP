@@ -1,149 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Patricia's Playhouse</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				margin: 0px;
-				background-color: #050505;
-				color: #fff;
-				overflow: hidden;
-			}
 
-			a { color: #e00 }
+  <head>
 
-			#info {
-				position: absolute;
-				top: 0px; width: 100%;
-				color: #ffffff;
-				padding: 5px;
-				font-family: Monospace;
-				font-size: 13px;
-				text-align: center;
-			}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-		</style>
-	</head>
+    <title>Patricia's Playhouse</title>
 
-	<body>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-		<script src="js/three.min.js"></script>
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
 
-		<script>
+    <!-- Custom styles for this template -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
 
-			var mesh, renderer, scene, camera;
+  </head>
 
+  <body id="page-top">
 
-			init();
-			render();
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Fuck Yeah</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-			function linspace(a,b,n) {
-			    if(typeof n === "undefined") n = Math.max(Math.round(b-a)+1,1);
-			    if(n<2) { return n===1?[a]:[]; }
-			    var i,ret = Array(n);
-			    n--;
-			    for(i=n;i>=0;i--) { ret[i] = (i*b+(n-i)*a)/n; }
-			    return ret;
-			}
+    <!-- Intro Header -->
+    <header class="masthead">
+      <div class="intro-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h1 class="brand-heading">Patricia's Playhouse</h1>
+              <p class="intro-text">We'll handle your business like no one else ever has.</p>
+              <a href="#about" class="btn btn-circle js-scroll-trigger">
+                <i class="fa fa-angle-double-down animated"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
+    <!-- About Section -->
+    <section id="about" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>The PP Guarantee</h2>
+            <p> If you decide to take your business elsewhere, we guarantee you will regret it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-			function init() {
+    <!-- Download Section -->
+    <section id="download" class="download-section content-section text-center">
+      <div class="container">
+        <div class="col-lg-8 mx-auto">
+          <h2>Services</h2>
+          <p>You name it, we got it.</p>
+        </div>
+      </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Contact</h2>
+            <p>Feel free to call us repeatedly through all hours of the night<br/>
+              (509) 969-1323</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
-				var info = document.createElement( 'div' );
-				info.style.position = 'absolute';
-				info.style.top = '80px';
-				info.style.width = '100%';
-				info.style.textAlign = 'center';
-				info.style.fontSize = '2.8em';
-				info.style.fontFamily = 'Arial'
-				info.innerHTML = 'Patricia\'s<br/>Playhouse<br/>Welcomes You';
-				container.appendChild( info );
+    <!-- Map Section -->
+    <div id="map"></div>
 
-				// linspace of the day
-				var lnsp = document.createElement( 'div' );
-				lnsp.style.position = 'absolute';
-				lnsp.style.top = '100px';
-				lnsp.style.width = '100%';
-				lnsp.style.textAlign = 'center';
-				lnsp.style.fontSize = '1.2em';
-				lnsp.style.fontFamily = 'Arial'
-				let date = new Date();
-				let month = date.getMonth()+1;
-				let day  = date.getDate();
-				let year = date.getFullYear()-2000;
-				var message = '<br/><br/><br/><br/><br/>The linspace of the day is linspace(';
-				message += month + ', ' + day + ', ' + year + ') = <br/>';
-				var arr = linspace(month,day,year);
-				message += '[';
-				for (a of arr) {
-					message += a + ', '
-				}
-				message += ']';
-				lnsp.innerHTML = message;
-				container.appendChild( lnsp );
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center">
+        <p>Come and get it^</p>
+      </div>
+    </footer>
 
-				renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-				scene = new THREE.Scene();
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.set( 0, 0, 40 );
-				scene.add( camera );
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEH2y9ZnSYSoKCxKbMl-Ohoz1of4NKI18&sensor=false"></script>
 
-				var geometry = new THREE.SphereGeometry( 100, 32, 32 );
+    <script src="js/three.min.js"></script>
 
-				var loader = new THREE.TextureLoader();
-				var texture = loader.load( 'assets/PANO_20170729_094826.jpg', render );
-				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-
-				//texture.matrixAutoUpdate = false; // set this to false to update texture.matrix manually
-
-				var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.BackSide } );
-
-				mesh = new THREE.Mesh( geometry, material );
-				scene.add( mesh );
-
-				//updateUvTransform();
-
-				//initGui();
-
-				window.addEventListener( 'resize', onWindowResize, false );
-
-			}
-
-			function render() {
-
-				mesh.rotation.y += 0.0002;
-				renderer.render( scene, camera );
-
-				requestAnimationFrame(render);
-
-			}
-
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-				render();
-
-			}
-
-		</script>
+    <!-- Custom scripts for this template -->
+    <script src="js/grayscale.js"></script>
 
 
-
-	</body>
+  </body>
 
 </html>
