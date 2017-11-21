@@ -1,1 +1,1 @@
-[https://pwhiddy.github.io/PP/]
+https://pwhiddy.github.io/PP/
